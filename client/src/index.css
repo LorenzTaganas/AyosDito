@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-paper;
+  }
+
+  ::selection {
+    @apply bg-brand-200 text-brand-950;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-line bg-paper-soft shadow-card;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+
+  .field-help {
+    @apply mt-1.5 text-xs leading-relaxed text-ink-mute;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(circle at 1px 1px, rgba(21, 36, 32, 0.13) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  .ticket-top {
+    background-image: linear-gradient(
+      to right,
+      theme('colors.brand.700') 0 28px,
+      transparent 28px 32px,
+      theme('colors.sun.DEFAULT') 32px 60px,
+      transparent 60px 64px,
+      theme('colors.brand.200') 64px 100%
+    );
+  }
+
+  .prose-legal h2 {
+    @apply mb-2 mt-9 text-xl font-bold;
+  }
+
+  .prose-legal h3 {
+    @apply mb-1.5 mt-6 text-base font-bold;
+  }
+
+  .prose-legal p {
+    @apply mb-3 text-[15px] leading-7 text-ink-soft;
+  }
+
+  .prose-legal ul {
+    @apply mb-4 list-disc space-y-1.5 pl-5 text-[15px] leading-7 text-ink-soft;
+  }
+
+  .prose-legal a {
+    @apply font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
