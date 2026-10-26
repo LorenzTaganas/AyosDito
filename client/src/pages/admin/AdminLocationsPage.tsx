@@ -33,7 +33,15 @@ import { Dialog } from '@/components/ui/Dialog';
 import { Field, Input, Select } from '@/components/ui/Field';
 import { EmptyState, ErrorState, LoadingBlock } from '@/components/ui/Feedback';
 import { AdminFilterTabs } from '@/components/admin/AdminFilters';
-import { AdminTableBody, AdminTableShell, AdminTd, AdminTh, AdminThead } from '@/components/admin/AdminTable';
+import {
+  AdminTableBody,
+  AdminTableShell,
+  AdminTd,
+  AdminTh,
+  AdminThead,
+  adminActionsCellClass,
+  adminActionsHeaderClass,
+} from '@/components/admin/AdminTable';
 
 const TYPE_ORDER: Record<LocationType, number> = {
   REGION: 0,
@@ -307,7 +315,7 @@ export function AdminLocationsPage() {
             <Badge variant="outline">Hierarchy: region → province / city → barangay</Badge>
           </div>
 
-          <AdminTableShell label="Locations" minWidth={950}>
+          <AdminTableShell label="Locations" minWidth={860}>
             <AdminThead>
               <tr>
                 <AdminTh>Place</AdminTh>
@@ -316,14 +324,18 @@ export function AdminLocationsPage() {
                 <AdminTh>Child places</AdminTh>
                 <AdminTh>Service areas</AdminTh>
                 <AdminTh>Requests</AdminTh>
-                <AdminTh className="text-right">Actions</AdminTh>
+                <AdminTh className={adminActionsHeaderClass}>Actions</AdminTh>
               </tr>
             </AdminThead>
             <AdminTableBody>
               {rows.map((location) => {
                 const TypeIcon = TYPE_ICONS[location.locationType];
                 return (
-                  <tr key={location.id} className="transition hover:bg-paper/70">
+                  <tr
+                    key={location.id}
+                    role="row"
+                    className="block py-2 transition hover:bg-paper/70 xl:table-row xl:py-0"
+                  >
                     <AdminTd>
                       <div className="flex items-start gap-2.5">
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700">
@@ -337,25 +349,25 @@ export function AdminLocationsPage() {
                         </div>
                       </div>
                     </AdminTd>
-                    <AdminTd>
+                    <AdminTd label="Parent place">
                       <span className="text-xs text-ink-soft">{location.parentName ?? '—'}</span>
                     </AdminTd>
-                    <AdminTd>
+                    <AdminTd label="Status">
                       <Badge variant={location.isActive ? 'brand' : 'neutral'}>
                         {location.isActive ? 'Active' : 'Hidden'}
                       </Badge>
                     </AdminTd>
-                    <AdminTd>
+                    <AdminTd label="Child places">
                       <span className="text-sm font-semibold">{location.childCount}</span>
                     </AdminTd>
-                    <AdminTd>
+                    <AdminTd label="Service areas">
                       <span className="text-sm font-semibold">{location.serviceAreaCount}</span>
                     </AdminTd>
-                    <AdminTd>
+                    <AdminTd label="Requests">
                       <span className="text-sm font-semibold">{location.requestCount}</span>
                     </AdminTd>
-                    <AdminTd className="text-right">
-                      <div className="flex flex-wrap justify-end gap-1.5">
+                    <AdminTd label="Actions" className={adminActionsCellClass}>
+                      <div className="flex flex-wrap justify-end gap-2 xl:flex-col xl:items-end xl:gap-1.5">
                         <Button variant="secondary" size="sm" onClick={() => openEdit(location)}>
                           <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
                           Edit

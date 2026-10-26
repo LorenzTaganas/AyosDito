@@ -238,7 +238,7 @@ export function HomePage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="absolute -right-3 -top-5 hidden rotate-3 rounded-xl border border-line bg-paper-soft px-3.5 py-2.5 shadow-card sm:block">
+            <div className="absolute -right-3 -top-7 z-20 hidden rotate-3 rounded-xl border border-line bg-paper-soft px-3.5 py-2.5 shadow-card sm:block">
               <p className="flex items-center gap-1.5 text-[11px] font-bold text-ink">
                 <LockKeyhole className="h-3.5 w-3.5 text-brand-700" aria-hidden="true" />
                 Contact details stay private
@@ -298,7 +298,7 @@ export function HomePage() {
               </div>
             </div>
 
-            <div className="absolute -bottom-6 left-4 hidden items-center gap-2 rounded-xl border border-line bg-paper-soft px-3.5 py-2.5 shadow-card sm:flex">
+            <div className="absolute -bottom-6 left-4 z-20 hidden items-center gap-2 rounded-xl border border-line bg-paper-soft px-3.5 py-2.5 shadow-card sm:flex">
               <BadgeCheck className="h-4 w-4 text-sun-deep" aria-hidden="true" />
               <span className="text-[11px] font-semibold text-ink-soft">
                 Verification is shown only after review

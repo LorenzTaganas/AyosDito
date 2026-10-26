@@ -19,7 +19,15 @@ import { Field, Input, Textarea } from '@/components/ui/Field';
 import { EmptyState, ErrorState, LoadingBlock } from '@/components/ui/Feedback';
 import { IconTile } from '@/components/ui/Avatar';
 import { AdminFilterTabs } from '@/components/admin/AdminFilters';
-import { AdminTableBody, AdminTableShell, AdminTd, AdminTh, AdminThead } from '@/components/admin/AdminTable';
+import {
+  AdminTableBody,
+  AdminTableShell,
+  AdminTd,
+  AdminTh,
+  AdminThead,
+  adminActionsCellClass,
+  adminActionsHeaderClass,
+} from '@/components/admin/AdminTable';
 
 const FILTER_OPTIONS = [
   { value: 'ALL', label: 'All categories' },
@@ -253,7 +261,7 @@ export function AdminCategoriesPage() {
             <Badge variant="outline">Changes are logged</Badge>
           </div>
 
-          <AdminTableShell label="Service categories" minWidth={900}>
+          <AdminTableShell label="Service categories" minWidth={840}>
             <AdminThead>
               <tr>
                 <AdminTh>Category</AdminTh>
@@ -261,12 +269,16 @@ export function AdminCategoriesPage() {
                 <AdminTh>Listings</AdminTh>
                 <AdminTh>Requests</AdminTh>
                 <AdminTh>Order</AdminTh>
-                <AdminTh className="text-right">Actions</AdminTh>
+                <AdminTh className={adminActionsHeaderClass}>Actions</AdminTh>
               </tr>
             </AdminThead>
             <AdminTableBody>
               {visible.map((category) => (
-                <tr key={category.id} className="transition hover:bg-paper/70">
+                <tr
+                  key={category.id}
+                  role="row"
+                  className="block py-2 transition hover:bg-paper/70 xl:table-row xl:py-0"
+                >
                   <AdminTd>
                     <div className="flex items-start gap-3">
                       <IconTile icon={categoryIcon(category.icon)} size="sm" />
@@ -283,22 +295,22 @@ export function AdminCategoriesPage() {
                       </div>
                     </div>
                   </AdminTd>
-                  <AdminTd>
+                  <AdminTd label="Visibility">
                     <Badge variant={category.isActive ? 'brand' : 'neutral'}>
                       {category.isActive ? 'Publicly listed' : 'Hidden'}
                     </Badge>
                   </AdminTd>
-                  <AdminTd>
+                  <AdminTd label="Provider listings">
                     <span className="text-sm font-semibold">{category.listingCount}</span>
                   </AdminTd>
-                  <AdminTd>
+                  <AdminTd label="Customer requests">
                     <span className="text-sm font-semibold">{category.requestCount}</span>
                   </AdminTd>
-                  <AdminTd>
+                  <AdminTd label="Sort order">
                     <span className="text-xs font-mono">{category.sortOrder}</span>
                   </AdminTd>
-                  <AdminTd className="text-right">
-                    <div className="flex flex-wrap justify-end gap-1.5">
+                  <AdminTd label="Actions" className={adminActionsCellClass}>
+                    <div className="flex flex-wrap justify-end gap-2 xl:flex-col xl:items-end xl:gap-1.5">
                       <Button variant="secondary" size="sm" onClick={() => openEdit(category)}>
                         <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
                         Edit

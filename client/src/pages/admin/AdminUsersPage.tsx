@@ -27,7 +27,15 @@ import {
   RoleBadge,
   VerificationStatusBadge,
 } from '@/components/admin/AdminBadges';
-import { AdminTableBody, AdminTableShell, AdminTd, AdminTh, AdminThead } from '@/components/admin/AdminTable';
+import {
+  AdminTableBody,
+  AdminTableShell,
+  AdminTd,
+  AdminTh,
+  AdminThead,
+  adminActionsCellClass,
+  adminActionsHeaderClass,
+} from '@/components/admin/AdminTable';
 
 type PendingAction =
   | { kind: 'suspend' | 'reactivate'; user: AdminUserDto }
@@ -205,20 +213,22 @@ export function AdminUsersPage() {
             </Badge>
           </div>
 
-          <AdminTableShell label="User accounts" minWidth={980}>
+          <AdminTableShell label="User accounts" minWidth={800}>
             <AdminThead>
               <tr>
                 <AdminTh>Person</AdminTh>
-                <AdminTh>Role</AdminTh>
-                <AdminTh>Provider profile</AdminTh>
+                <AdminTh>Role and provider</AdminTh>
                 <AdminTh>Account</AdminTh>
-                <AdminTh>Joined</AdminTh>
-                <AdminTh className="text-right">Actions</AdminTh>
+                <AdminTh className={adminActionsHeaderClass}>Actions</AdminTh>
               </tr>
             </AdminThead>
             <AdminTableBody>
               {users.data.data.map((row) => (
-                <tr key={row.id} className="transition hover:bg-paper/70">
+                <tr
+                  key={row.id}
+                  role="row"
+                  className="block py-2 transition hover:bg-paper/70 xl:table-row xl:py-0"
+                >
                   <AdminTd>
                     <div className="flex items-start gap-2.5">
                       <Avatar name={row.fullName} size="sm" />
@@ -239,32 +249,30 @@ export function AdminUsersPage() {
                       </div>
                     </div>
                   </AdminTd>
-                  <AdminTd>
-                    <RoleBadge role={row.role} />
-                  </AdminTd>
-                  <AdminTd>
-                    {row.provider ? (
-                      <div className="min-w-0 max-w-[13rem]">
-                        <p className="break-words text-xs font-semibold text-ink">
-                          {row.provider.businessName}
-                        </p>
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          <ApprovalStatusBadge status={row.provider.approvalStatus} />
-                          <VerificationStatusBadge status={row.provider.verificationStatus} />
+                  <AdminTd label="Role and provider">
+                    <div className="min-w-0 max-w-[15rem]">
+                      <RoleBadge role={row.role} />
+                      {row.provider ? (
+                        <div className="mt-1.5">
+                          <p className="break-words text-xs font-semibold text-ink">
+                            {row.provider.businessName}
+                          </p>
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            <ApprovalStatusBadge status={row.provider.approvalStatus} />
+                            <VerificationStatusBadge status={row.provider.verificationStatus} />
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-ink-mute">—</span>
-                    )}
+                      ) : null}
+                    </div>
                   </AdminTd>
-                  <AdminTd>
+                  <AdminTd label="Account">
                     <AccountStatusBadge status={row.accountStatus} />
+                    <p className="mt-1.5 whitespace-nowrap text-[11px] text-ink-mute">
+                      Joined {formatDate(row.createdAt)}
+                    </p>
                   </AdminTd>
-                  <AdminTd>
-                    <span className="text-xs text-ink-soft">{formatDate(row.createdAt)}</span>
-                  </AdminTd>
-                  <AdminTd className="text-right">
-                    <div className="flex flex-wrap justify-end gap-1.5">
+                  <AdminTd label="Actions" className={adminActionsCellClass}>
+                    <div className="flex flex-wrap justify-end gap-2 xl:flex-col xl:items-end xl:gap-1.5">
                       {row.role === 'ADMIN' ? (
                         <span
                           className="text-[11px] text-ink-mute"

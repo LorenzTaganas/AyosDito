@@ -169,13 +169,13 @@ export function ProviderProfilePage() {
           <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-paper-soft/20 to-transparent" />
         </div>
         <div className="px-5 pb-6 sm:px-8">
-          <div className="-mt-10 flex flex-col gap-4 sm:-mt-12 sm:flex-row sm:items-end sm:justify-between">
-            <div className="flex items-end gap-4">
+          <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:gap-4">
               <Avatar
                 name={provider.businessName}
                 imageUrl={provider.profileImage}
                 size="xl"
-                className="border-4 border-paper-soft shadow-card"
+                className="-mt-10 border-4 border-paper-soft shadow-card sm:-mt-12"
               />
               <div className="min-w-0 pb-1">
                 <div className="flex flex-wrap items-center gap-2">
